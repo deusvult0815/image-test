@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background-color: #f0f0f0; }
+        img { max-width: 80%; height: auto; margin: 20px auto; display: block; }
+        button { margin: 10px; padding: 10px 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>GitHub Image Gallery</h1>
+    <img id="galleryImage" src="" alt="Gallery Image">
+    <div>
+        <button onclick="prevImage()">Previous</button>
+        <button onclick="nextImage()">Next</button>
+    </div>
+
+    <script>
+        const images = [
+            "https://raw.githubusercontent.com/deusvult0815/image-test/main/image1.jpg",
+            "https://raw.githubusercontent.com/deusvult0815/image-test/main/image2.jpg",
+            "https://raw.githubusercontent.com/deusvult0815/image-test/main/image3.jpg"
+        ];
+
+        let currentIndex = 0;
+        const imgElement = document.getElementById("galleryImage");
+
+        function showImage(index) {
+            imgElement.src = images[index];
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        }
+
+        // Auto-rotate every 5 seconds
+        setInterval(nextImage, 5000);
+
+        // Initialize with the first image
+        showImage(currentIndex);
+    </script>
+</body>
+</html>
