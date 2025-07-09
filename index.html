@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Image Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
+
+    h1 {
+      margin: 20px 0 10px;
+    }
+
+    .controls {
+      margin-bottom: 10px;
+    }
+
+    .controls button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 1em;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .controls button:hover {
+      background: #005fa3;
+    }
+
+    .slideshow {
+      position: relative;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    .slideshow img {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 10px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .slideshow img.active {
+      opacity: 1;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+
+  <h1>Image Gallery</h1>
+  <div class="controls">
+    <button onclick="prevImage()">Previous</button>
+    <button onclick="nextImage()">Next</button>
+  </div>
+  <div class="slideshow" onmouseover="pauseSlideshow()" onmouseout="resumeSlideshow()">
+    <img src="https://raw.githubusercontent.com/deusvult0815/image-test/main/imagehttps://raw.githubusercontent.com/deusvult0815/image-test/main/image2.jpg
+    https://raw.githubusercontent.com/deusvult0815/image-test/main/image3.jpg
+    https://raw.githubusercontent.com/deusvult0815/image-test/main/image4.jpg
+    <imgs://raw.githubusercontent.com/deusvult0815/image-test/main/image5.jpg
+    https://raw.githubusercontent.com/deusvult0815/image-test/main/image6.jpg
+  </div>
+
+  <script>
+    // Slideshow
+    const images = document.querySelectorAll('.slideshow img');
+    let current = 0;
+    let interval = setInterval(nextImage, 10000);
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+    }
+
+    function nextImage() {
+      current = (current + 1) % images.length;
+      showImage(current);
+    }
+
+    function prevImage() {
+      current = (current - 1 + images.length) % images.length;
+      showImage(current);
+    }
+
+    function pauseSlideshow() {
+      clearInterval(interval);
+    }
+
+    function resumeSlideshow() {
+      interval = setInterval(nextImage, 10000);
+    }
+
+    // Stars background
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 100; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    drawStars();
+  </script>
+</body>
+</html>
