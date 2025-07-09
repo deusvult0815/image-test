@@ -10,14 +10,25 @@
       background: #111;
       color: white;
       text-align: center;
-      <canvas id="stars"></canvas>
     }
+
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
+
     h1 {
       margin: 20px 0 10px;
     }
+
     .controls {
       margin-bottom: 10px;
     }
+
     .controls button {
       padding: 10px 20px;
       margin: 0 10px;
@@ -29,14 +40,17 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
+
     .controls button:hover {
       background: #005fa3;
     }
+
     .slideshow {
       position: relative;
       max-width: 90%;
       margin: 0 auto;
     }
+
     .slideshow img {
       width: 100%;
       max-height: 80vh;
@@ -48,37 +62,32 @@
       top: 0;
       left: 0;
     }
+
     .slideshow img.active {
       opacity: 1;
       position: relative;
     }
-      #stars {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-    }
-
   </style>
 </head>
 <body>
+  <canvas id="stars"></canvas>
+
   <h1>Image Gallery</h1>
   <div class="controls">
     <button onclick="prevImage()">Previous</button>
     <button onclick="nextImage()">Next</button>
   </div>
   <div class="slideshow" onmouseover="pauseSlideshow()" onmouseout="resumeSlideshow()">
-    <img src="https://raw.githubusercontent.com/deusvult0815/image-test/main/image1.jpg" class="active" />
-    <img src="https://raw.githubusercontent.com/deusvult0815/image-test/main/image2.jpg" />
-    <img src="https://raw.githubusercontent.com/deusvult0815/image-test/main/image3.jpg" />
-    <img src="https://raw.githubusercontent.com/deusvult0815/image-test/main/image4.jpg" />
-    <img src="https://raw.githubusercontent.com/deusvult0815/image-test/main/image5.jpg" />
-    <img src="https://raw.githubusercontent.com/deusvult0815/image-test/main/image6.jpg" />
+    <img src="https://raw.githubusercontent.com/deusvult0815/image-teste1.jpg
+    <img src="https://raw.githubusercontent.com/deusvult0815/image/image2.jpg
+    https://raw.githubusercontent.com/deusvult0815/image-test/main/image3.jpg
+    https://raw.githubusercontent.com/deusvult0815/image-test/main/image4.jpg
+    <img src="https://raw.githubusercontent.com/deusvult0815/image-teste5.jpg
+    https://raw.githubusercontent.com/deusvult0815/image-test/main/image6.jpg
   </div>
 
   <script>
+    // Slideshow
     const images = document.querySelectorAll('.slideshow img');
     let current = 0;
     let interval = setInterval(nextImage, 10000);
@@ -106,46 +115,47 @@
     function resumeSlideshow() {
       interval = setInterval(nextImage, 10000);
     }
-    <script>
-  const canvas = document.getElementById('stars');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+    // Stars background
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
 
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
-  for (let i = 0; i < 100; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5,
-      speed: Math.random() * 0.5 + 0.2
-    });
-  }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-  function drawStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'white';
-    stars.forEach(star => {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fill();
-      star.y += star.speed;
-      if (star.y > canvas.height) {
-        star.y = 0;
-        star.x = Math.random() * canvas.width;
-      }
-    });
-    requestAnimationFrame(drawStars);
-  }
+    for (let i = 0; i < 100; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.5 + 0.2
+      });
+    }
 
-  drawStars();
-</script>
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    drawStars();
   </script>
 </body>
 </html>
+
